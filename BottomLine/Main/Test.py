@@ -12,7 +12,13 @@ def recipe_success(state):
 
 class problem() :
 
+    def __init__(self, initial_population, objective_function, mutation_probability, fitness_goal, gene_min=1, gene_max=4,) :
+        self.population = initial_population
+        self.objective_function = recipe_success
+        self.mutation_probability = mutation_probability
+        self.fitness_goal = fitness_goal
+        self.gene_min,gene_max = gene_min,gene_max
 
-
-    def __init__(self, initial_population, objective_function, mutation_probability, fitness_goal, gene_min=1, gene_max=4, rng=None) :
+    def fitness(self) :
+        scores = [self.objective_function(m) for m in self.population]
         
