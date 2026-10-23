@@ -122,4 +122,9 @@ if __name__ == "__main__":
     )
 
     out = genetic_algorithm(genetic_problem, 200)
+
+    out["best_member"] = [int(x) for x in out["best_member"]]
+    out["best_score"] = int(out["best_score"])
+    out["history_best"] = [int(x) for x in out["history_best"]]
+
     print(out)
