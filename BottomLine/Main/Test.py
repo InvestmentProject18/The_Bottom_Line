@@ -21,4 +21,15 @@ class problem() :
 
     def fitness(self) :
         scores = [self.objective_function(m) for m in self.population]
+        min_scores = min(scores)
+        max_scores = max(scores)
+        if max_score != min_score :
+            buffer = (max_score - min_score) * 0.05
+        else :
+            buffer = 1e-6
+        adjusted = [(score-min_score) + buffer for s in scores)]
+        total = sum(adjusted)
+        p_reproduce = [a / total for a in adjusted]
+        return p_reproduce
+        
         
