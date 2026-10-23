@@ -1,6 +1,6 @@
 import random
 import numpy as np
-target = [1, 3, 2, 1, 1, 4, 1, 1]   # global constant
+target = [1, 3, 2, 1, 1, 4, 1, 1]  
 
 def recipe_success(state):
     total_distance = 0
