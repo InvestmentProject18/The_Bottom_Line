@@ -39,11 +39,11 @@ class problem() :
         return(child)
         
     def mutate(self,child) :
-       if self.rng.uniform(0, 1) < self.mutation_probability:
-           index = self.rng.integers(0, len(child))
+       if self.rng.uniform(0, 1) < self.mutation_probability:   
+           index = self.rng.integers(0, len(child))              
            new_value = self.rng.integers(self.gene_min, self.gene_max + 1)
            child[index] = new_value
-       return child
+       return child                                             
         
 def genetic_algorithm(genetic_problem, num_generations):
     pop_size = len(genetic_problem.population)
@@ -94,3 +94,32 @@ def genetic_algorithm(genetic_problem, num_generations):
         "history_best": history_best,
         "history_avg": history_avg,
     }    
+
+
+
+if __name__ == "__main__":
+    seed = 42
+    rng = np.random.default_rng(seed)
+
+    population_size = 100
+    dna_len = len(target)
+    gene_min, gene_max = 1, 4
+
+    initial_population = [
+        [int(rng.integers(gene_min, gene_max + 1)) for _ in range(dna_len)]
+        for _ in range(population_size)
+    ]
+
+
+    genetic_problem = problem(
+        initial_population=initial_population,
+        objective_function=recipe_success,
+        mutation_probability=0.2,
+        fitness_goal=0,                 
+        gene_min=gene_min,
+        gene_max=gene_max,
+        rng=rng,
+    )
+
+    out = genetic_algorithm(genetic_problem, 200)
+    print(out)
