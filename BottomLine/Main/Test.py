@@ -39,11 +39,11 @@ class problem() :
         return(child)
         
     def mutate(self,child) :
-       if self.rng.uniform(0, 1) < self.mutation_probability:
-           index = self.rng.integers(0, len(child))
-           new_value = self.rng.integers(self.gene_min, self.gene_max + 1)
-           child[index] = new_value
-       return child
+        if self.rng.uniform(0, 1) < self.mutation_probability:
+            index = self.rng.integers(0, len(child))
+            new_value = self.rng.integers(self.gene_min, self.gene_max + 1)
+            child[index] = new_value
+        return child
         
 def genetic_algorithm(genetic_problem, num_generations):
     pop_size = len(genetic_problem.population)
@@ -56,8 +56,7 @@ def genetic_algorithm(genetic_problem, num_generations):
     history_avg = []
     
     for gen in range(int(num_generations)):
-        # STEP 1: Evaluate population — score every member
-        scores = [??? for m in genetic_problem.population]
+        scores = [genetic_problem.objective_function(m) for m in genetic_problem.population]
         
         gen_best_idx = int(np.argmax(scores))
         gen_best_score = scores[gen_best_idx]
