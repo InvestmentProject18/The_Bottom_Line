@@ -44,4 +44,54 @@ class problem() :
            new_value = self.rng.integers(self.gene_min, self.gene_max + 1)
            child[index] = new_value
        return child
+        
+def genetic_algorithm(genetic_problem, num_generations):
+    pop_size = len(genetic_problem.population)
+    rng = genetic_problem.rng
     
+    best_member = None
+    best_score = -float("inf")
+    generation_found = None
+    history_best = []
+    history_avg = []
+    
+    for gen in range(int(num_generations)):
+        # STEP 1: Evaluate population — score every member
+        scores = [??? for m in genetic_problem.population]
+        
+        gen_best_idx = int(np.argmax(scores))
+        gen_best_score = scores[gen_best_idx]
+        gen_best_member = genetic_problem.population[gen_best_idx]
+        
+        if gen_best_score > best_score:
+            best_score = gen_best_score
+            best_member = list(gen_best_member)
+        
+        history_best.append(best_score)
+        history_avg.append(float(np.mean(scores)))
+        
+        if best_score >= genetic_problem.fitness_goal:
+            generation_found = gen
+            break
+        
+        p = genetic_problem.fitness()
+        
+        new_population = []
+        for _ in range(pop_size):
+            i1, i2 = rng.choice(pop_size, size=2, replace=True, p=p)
+            parent1 = genetic_problem.population[int(i1)]
+            parent2 = genetic_problem.population[int(i2)]
+            
+            child = genetic_problem.reproduce(parent1, parent2)
+            child = genetic_problem.mutate(child)
+            new_population.append(child)
+        
+        genetic_problem.population = new_population
+    
+    return {
+        "best_member": best_member,
+        "best_score": best_score,
+        "generation_found": generation_found,
+        "history_best": history_best,
+        "history_avg": history_avg,
+    }    
