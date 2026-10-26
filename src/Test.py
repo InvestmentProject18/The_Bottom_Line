@@ -11,8 +11,6 @@ def recipe_success(state):
 
 
 class problem() :
-
-
-
     def __init__(self, initial_population, objective_function, mutation_probability, fitness_goal, gene_min=1, gene_max=4, rng=None) :
+       self.initial_population = initial_population
         
