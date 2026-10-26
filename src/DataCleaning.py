@@ -5,3 +5,5 @@ df = pd.read_csv("/workspaces/The_Bottom_Line/DataExtraction/GOVSSTATETAXTIMESER
 df1 = df.drop(columns = "Coefficient of Variation for Amount (percent) (AMOUNT_CV)")
 
 GT(df1).show()
+
+print("This is a test")
