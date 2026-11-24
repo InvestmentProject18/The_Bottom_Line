@@ -1,9 +1,5 @@
-import sys
-import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import numpy as np
 import pandas as pd
-from src.GeneticAlgorithm import recipe_success
 
 df1 = pd.read_csv('Data/Historical Income Tax Rates and Brackets, 1862-2025.csv',
                   na_values="NaN", nrows=7)
@@ -183,34 +179,3 @@ if __name__ == "__main__":
     rev_pct = (best_rev - baseline_revenue) / baseline_revenue * 100
     print("Revenue change: {:+.2f}%".format(rev_pct))
 
-if __name__ == "__main__":
-    seed = 42
-    rng = np.random.default_rng(seed)
-
-    population_size = 100
-    dna_len = len(baseline_rates)
-    gene_min, gene_max = 1, 4
-
-    initial_population = [
-        [int(rng.integers(gene_min, gene_max + 1)) for _ in range(dna_len)]
-        for _ in range(population_size)
-    ]
-
-
-    genetic_problem = problem(
-        initial_population=initial_population,
-        objective_function=revenue_objective,
-        mutation_probability=0.2,
-        fitness_goal=0,                 
-        gene_min=gene_min,
-        gene_max=gene_max,
-        rng=rng,
-    )
-
-    out = genetic_algorithm(genetic_problem, 200)
-
-    out["best_member"] = [int(x) for x in out["best_member"]]
-    out["best_score"] = int(out["best_score"])
-    out["history_best"] = [int(x) for x in out["history_best"]]
-
-    print(out)
