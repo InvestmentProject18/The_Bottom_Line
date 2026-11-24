@@ -1,11 +1,14 @@
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import numpy as np
 import pandas as pd
-
+from src.GeneticAlgorithm import recipe_success
 
 df1 = pd.read_csv('Data/Historical Income Tax Rates and Brackets, 1862-2025.csv',
                   na_values="NaN", nrows=7)
 
-<<<<<<< HEAD
+
 RATE_COL = "Married Filing Jointly (Rates/Brackets)"
 THRESH_COL = "Unnamed: 2" 
 
@@ -143,8 +146,6 @@ def genetic_algorithm(genetic_problem, num_generations):
         "history_avg": history_avg,
     }
 
-
-#Initial Populatio
 if __name__ == "__main__":
     POP_SIZE = 50
     N_GENERATIONS = 80
@@ -181,13 +182,13 @@ if __name__ == "__main__":
     best_rev = sum(tax_due(inc, result["best_member"], lowers, uppers) for inc in incomes)
     rev_pct = (best_rev - baseline_revenue) / baseline_revenue * 100
     print("Revenue change: {:+.2f}%".format(rev_pct))
-=======
+
 if __name__ == "__main__":
     seed = 42
     rng = np.random.default_rng(seed)
 
     population_size = 100
-    dna_len = len(target)
+    dna_len = len(baseline_rates)
     gene_min, gene_max = 1, 4
 
     initial_population = [
@@ -198,7 +199,7 @@ if __name__ == "__main__":
 
     genetic_problem = problem(
         initial_population=initial_population,
-        objective_function=recipe_success,
+        objective_function=revenue_objective,
         mutation_probability=0.2,
         fitness_goal=0,                 
         gene_min=gene_min,
@@ -213,4 +214,3 @@ if __name__ == "__main__":
     out["history_best"] = [int(x) for x in out["history_best"]]
 
     print(out)
->>>>>>> 2a2007f517af20c5dd01da654ca7cb7e88b894e3
